@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simpeg_mascitra_mobile/pages/cutiPage/riwayatCutiPage.dart';
 import '../navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -145,14 +146,15 @@ class _HomePageState extends State<HomePage> {
                               return GestureDetector(
                                 onTap: () {
                                   // Handle feature tap
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        '${feature['title']} dipilih',
-                                      ),
-                                      duration: const Duration(seconds: 1),
-                                    ),
-                                  );
+                                  if (feature['title'] == 'Cuti') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RiwayatCutiPage(),
+                                        ),
+                                      );
+                                    }
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
