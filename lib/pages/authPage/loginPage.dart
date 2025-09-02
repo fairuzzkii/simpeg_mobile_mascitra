@@ -38,7 +38,21 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final screenHeight = MediaQuery.of(context).size.height;
+    
+    // Adjust heights based on keyboard visibility
+    final topImageHeight = keyboardHeight > 0 
+        ? screenHeight * 0.25  // Smaller when keyboard is visible
+        : screenHeight * 0.40; // Normal height when keyboard is hidden
+    
+    final bottomContainerHeight = keyboardHeight > 0
+        ? screenHeight - topImageHeight + keyboardHeight // Full remaining height + keyboard
+        : screenHeight * 0.65; // Normal height
+
     return Scaffold(
+      // Prevent resizing when keyboard appears
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           // Background gradient
@@ -56,11 +70,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           
+          // Top pattern image - adjust height based on keyboard
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            height: topImageHeight,
+            child: Image.asset(
+              'assets/images/topographic_pattern2.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          
+          // Bottom container with form
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: bottomContainerHeight,
             child: Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -70,165 +97,167 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                      const Text(
-                        'Masuk',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2D2D2D),
-                          fontFamily: 'Poppins',
+                child: SingleChildScrollView(
+                  physics: keyboardHeight > 0 
+                      ? const BouncingScrollPhysics() 
+                      : const NeverScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Dynamic spacing based on keyboard
+                        SizedBox(
+                          height: keyboardHeight > 0 
+                              ? 16.0 // Less space when keyboard is visible
+                              : screenHeight * 0.08, // Normal space
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Silahkan masuk dengan password\ndan Email-mu yang terdaftar',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF6B6B6B),
-                          height: 1.5,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      // Email field
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: const Color(0xFFE0E0E0),
-                            width: 1,
-                          ),
-                        ),
-                        child: TextField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'Masukkan Email',
-                            hintStyle: TextStyle(
-                              color: Color(0xFF9E9E9E),
-                              fontFamily: 'Poppins',
-                            ),
-                            prefixIcon: Icon(
-                              Icons.email_outlined,
-                              color: Color(0xFFD2691E),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 16,
-                            ),
-                          ),
-                          style: const TextStyle(
+                        const Text(
+                          'Masuk',
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2D2D2D),
                             fontFamily: 'Poppins',
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      // Password field
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: const Color(0xFFE0E0E0),
-                            width: 1,
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Silahkan masuk dengan password\ndan Email-mu yang terdaftar',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF6B6B6B),
+                            height: 1.5,
+                            fontFamily: 'Poppins',
                           ),
                         ),
-                        child: TextField(
-                          controller: _passwordController,
-                          obscureText: !_isPasswordVisible,
-                          decoration: InputDecoration(
-                            hintText: 'Masukkan Password',
-                            hintStyle: const TextStyle(
-                              color: Color(0xFF9E9E9E),
-                              fontFamily: 'Poppins',
+                        const SizedBox(height: 32),
+                        // Email field
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color(0xFFE0E0E0),
+                              width: 1,
                             ),
-                            prefixIcon: const Icon(
-                              Icons.lock_outline,
-                              color: Color(0xFFD2691E),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isPasswordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: const Color(0xFF9E9E9E),
+                          ),
+                          child: TextField(
+                            controller: _emailController,
+                            decoration: const InputDecoration(
+                              hintText: 'Masukkan Email',
+                              hintStyle: TextStyle(
+                                color: Color(0xFF9E9E9E),
+                                fontFamily: 'Poppins',
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _isPasswordVisible = !_isPasswordVisible;
-                                });
-                              },
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: Color(0xFFD2691E),
+                              ),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 16,
+                              ),
                             ),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 16,
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
                             ),
-                          ),
-                          style: const TextStyle(
-                            fontFamily: 'Poppins',
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 32),
+                        const SizedBox(height: 16),
+                        // Password field
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color(0xFFE0E0E0),
+                              width: 1,
+                            ),
+                          ),
+                          child: TextField(
+                            controller: _passwordController,
+                            obscureText: !_isPasswordVisible,
+                            decoration: InputDecoration(
+                              hintText: 'Masukkan Password',
+                              hintStyle: const TextStyle(
+                                color: Color(0xFF9E9E9E),
+                                fontFamily: 'Poppins',
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock_outline,
+                                color: Color(0xFFD2691E),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: const Color(0xFF9E9E9E),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                              border: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 16,
+                              ),
+                            ),
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 32),
 
-                      Center(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.6, 
-                          height: 56,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _handleLogin,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD2691E),
-                              foregroundColor: Colors.white,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
+                        Center(
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.6, 
+                            height: 56,
+                            child: ElevatedButton(
+                              onPressed: _isLoading ? null : _handleLogin,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFD2691E),
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
                               ),
-                            ),
-                            child: _isLoading
-                                ? const SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
+                              child: _isLoading
+                                  ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  : const Text(
+                                      'Masuk',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Poppins',
                                       ),
                                     ),
-                                  )
-                                : const Text(
-                                    'Masuk',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        // Extra padding at bottom when keyboard is visible
+                        if (keyboardHeight > 0)
+                          const SizedBox(height: 32),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          
-  
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            height: MediaQuery.of(context).size.height * 0.60, 
-            child: Image.asset(
-              'assets/images/topographic_pattern2.png',
-              fit: BoxFit.cover,
             ),
           ),
         ],
