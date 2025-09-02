@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simpeg_mascitra_mobile/pages/cutiPage/riwayatCutiPage.dart';
 import '../navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,21 +14,9 @@ class _HomePageState extends State<HomePage> {
   bool isAbsent = false;
 
   final List<Map<String, dynamic>> features = [
-    {
-      'title': 'Jam Masuk',
-      'icon': Icons.login,
-      'color': Color(0xFFD2691E),
-    },
-    {
-      'title': 'Jam Pulang',
-      'icon': Icons.schedule,
-      'color': Color(0xFFD2691E),
-    },
-    {
-      'title': 'Cuti',
-      'icon': Icons.event_note,
-      'color': Color(0xFFD2691E),
-    },
+    {'title': 'Jam Masuk', 'icon': Icons.login, 'color': Color(0xFFD2691E)},
+    {'title': 'Jam Pulang', 'icon': Icons.schedule, 'color': Color(0xFFD2691E)},
+    {'title': 'Cuti', 'icon': Icons.event_note, 'color': Color(0xFFD2691E)},
     {
       'title': 'Kegiatan Harian',
       'icon': Icons.assignment,
@@ -38,11 +27,7 @@ class _HomePageState extends State<HomePage> {
       'icon': Icons.history,
       'color': Color(0xFFD2691E),
     },
-    {
-      'title': 'Penilaian',
-      'icon': Icons.star,
-      'color': Color(0xFFD2691E),
-    },
+    {'title': 'Penilaian', 'icon': Icons.star, 'color': Color(0xFFD2691E)},
   ];
 
   final List<Map<String, String>> weekDays = [
@@ -63,10 +48,7 @@ class _HomePageState extends State<HomePage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFF8C42),
-              Color(0xFFD2691E),
-            ],
+            colors: [Color(0xFFFF8C42), Color(0xFFD2691E)],
           ),
         ),
         child: Stack(
@@ -144,24 +126,28 @@ class _HomePageState extends State<HomePage> {
                             GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                                childAspectRatio: 1,
-                              ),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
+                                    childAspectRatio: 1,
+                                  ),
                               itemCount: features.length,
                               itemBuilder: (context, index) {
                                 final feature = features[index];
                                 return GestureDetector(
                                   onTap: () {
                                     // Handle feature tap
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('${feature['title']} dipilih'),
-                                        duration: const Duration(seconds: 1),
-                                      ),
-                                    );
+                                    if (feature['title'] == 'Cuti') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RiwayatCutiPage(),
+                                        ),
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -176,14 +162,19 @@ class _HomePageState extends State<HomePage> {
                                       ],
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Container(
                                           width: 48,
                                           height: 48,
                                           decoration: BoxDecoration(
-                                            color: feature['color'].withOpacity(0.1),
-                                            borderRadius: BorderRadius.circular(12),
+                                            color: feature['color'].withOpacity(
+                                              0.1,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
                                           ),
                                           child: Icon(
                                             feature['icon'],
@@ -224,32 +215,36 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: weekDays.map((day) {
-                                final isSelected = selectedDate == '${day['day']}\n${day['date']}';
+                                final isSelected =
+                                    selectedDate ==
+                                    '${day['day']}\n${day['date']}';
                                 return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      selectedDate = '${day['day']}\n${day['date']}';
+                                      selectedDate =
+                                          '${day['day']}\n${day['date']}';
                                     });
                                   },
                                   child: Container(
                                     width: 60,
                                     height: 80,
                                     decoration: BoxDecoration(
-                                      color: isSelected 
-                                          ? const Color(0xFFD2691E) 
+                                      color: isSelected
+                                          ? const Color(0xFFD2691E)
                                           : Colors.grey[100],
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           day['day']!,
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
-                                            color: isSelected 
-                                                ? Colors.white 
+                                            color: isSelected
+                                                ? Colors.white
                                                 : const Color(0xFF6B6B6B),
                                             fontFamily: 'Poppins',
                                           ),
@@ -260,8 +255,8 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color: isSelected 
-                                                ? Colors.white 
+                                            color: isSelected
+                                                ? Colors.white
                                                 : const Color(0xFF2D2D2D),
                                             fontFamily: 'Poppins',
                                           ),
@@ -289,7 +284,8 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           'Status',
@@ -301,7 +297,9 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          isAbsent ? 'Sudah Absen' : 'Belum Absen',
+                                          isAbsent
+                                              ? 'Sudah Absen'
+                                              : 'Belum Absen',
                                           style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600,
@@ -356,7 +354,9 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: const Color(0xFFD2691E).withOpacity(0.3),
+                                    color: const Color(
+                                      0xFFD2691E,
+                                    ).withOpacity(0.3),
                                     blurRadius: 15,
                                     offset: const Offset(0, 8),
                                   ),
@@ -366,7 +366,8 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: const [
                                         Text(
                                           'Lorem ipsum dolor sit amet',
@@ -406,7 +407,9 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 100), // Space for bottom navigation
+                            const SizedBox(
+                              height: 100,
+                            ), // Space for bottom navigation
                           ],
                         ),
                       ),
