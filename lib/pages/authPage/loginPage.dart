@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final isKeyboardVisible = keyboardHeight > 0;
     final topImageHeight = screenHeight * 0.10;
-    final topImageOffset = isKeyboardVisible ? -keyboardHeight * 0.6 : 0.0;
+    final topImageOffset = isKeyboardVisible ? -keyboardHeight * 0.7 : 0.0;
     final formContainerHeight = isKeyboardVisible
         ? screenHeight - topImageHeight
         : screenHeight * 0.78;

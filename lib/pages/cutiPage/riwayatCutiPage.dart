@@ -22,6 +22,8 @@ class _RiwayatCutiPageState extends State<RiwayatCutiPage> {
                 image: AssetImage(
                   'assets/images/Grey.png',
                 ), // Background orange dengan lorek putih
+
+                
                 fit: BoxFit.cover,
               ),
             ),
