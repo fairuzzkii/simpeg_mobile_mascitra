@@ -167,14 +167,10 @@ class _LoginPageState extends State<LoginPage> {
                                           ? null
                                           : _handleLogin,
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(
-                                          0xFFD2691E,
-                                        ),
+                                        backgroundColor: const Color(0xFFC64304),
                                         foregroundColor: Colors.white,
                                         elevation: 3,
-                                        shadowColor: const Color(
-                                          0xFFD2691E,
-                                        ).withOpacity(0.3),
+                                        shadowColor: const Color(0xFFC64304).withOpacity(0.3),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                             50,
@@ -275,7 +271,7 @@ class _LoginPageState extends State<LoginPage> {
             color: Color(0xFF9E9E9E),
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(prefixIcon, color: const Color(0xFFD2691E)),
+          prefixIcon: Icon(prefixIcon, color: const Color(0xFFC64304)),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
