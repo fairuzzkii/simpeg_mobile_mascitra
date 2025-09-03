@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simpeg_mascitra_mobile/pages/profilePage/dataAkunPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/profilePage/petunjukPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/starterPage/welcomePage.dart';
 import '../navbar.dart';
 
@@ -144,7 +146,12 @@ class ProfilePage extends StatelessWidget {
                           title: 'Data Akun',
                           subtitle: 'Detail your data account',
                           onTap: () {
-                            // Navigate to account data (placeholder)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DataAkunPage(),
+                              ),
+                            );
                           },
                           isFirst: true,
                         ),
@@ -160,7 +167,12 @@ class ProfilePage extends StatelessWidget {
                           title: 'Petunjuk',
                           subtitle: 'Instructions App Kepegawaian',
                           onTap: () {
-                            // Navigate to instructions (placeholder)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PetunjukFilePage(),
+                              ),
+                            );
                           },
                           isFirst: false,
                         ),
@@ -307,7 +319,6 @@ class ProfilePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Close dialog and navigate to WelcomePage
                 Navigator.of(context).pop();
                 Navigator.pushAndRemoveUntil(
                   context,

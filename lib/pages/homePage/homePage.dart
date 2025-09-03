@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simpeg_mascitra_mobile/pages/cutiPage/riwayatCutiPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/notificationPage/notificationPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/penilaianPage/penilaianPage.dart';
 import '../navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -155,6 +156,13 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const RiwayatCutiPage(),
+                                ),
+                              );
+                            } else if (feature['title'] == 'Penilaian') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const PenilaianPage(),
                                 ),
                               );
                             }
