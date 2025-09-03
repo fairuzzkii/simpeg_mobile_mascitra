@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          'Fairuz',
+                          'Fairuz Zaki',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
