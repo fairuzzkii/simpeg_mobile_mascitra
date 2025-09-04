@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:simpeg_mascitra_mobile/pages/homePage/homePage.dart';
+import 'package:simpeg_mascitra_mobile/pages/homePage/homePage.dart'
+    hide NotificationPage;
 import 'package:simpeg_mascitra_mobile/pages/notificationPage/notificationPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/profilePage/profilePage.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
 
-  const CustomBottomNavBar({
-    super.key,
-    required this.currentIndex,
-  });
+  const CustomBottomNavBar({super.key, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +27,8 @@ class CustomBottomNavBar extends StatelessWidget {
           height: 80,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
-            crossAxisAlignment: CrossAxisAlignment.center, 
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: _buildNavItem(
@@ -81,11 +79,13 @@ class CustomBottomNavBar extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               isActive ? activeIcon : icon,
-              color: isActive ? const Color(0xFFD2691E) : const Color(0xFF9E9E9E),
+              color: isActive
+                  ? const Color(0xFFC64304)
+                  : const Color(0xFF9E9E9E),
               size: 24,
             ),
             const SizedBox(height: 4),
@@ -94,21 +94,13 @@ class CustomBottomNavBar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color: isActive ? const Color(0xFFD2691E) : const Color(0xFF9E9E9E),
+                color: isActive
+                    ? const Color(0xFFC64304)
+                    : const Color(0xFF9E9E9E),
                 fontFamily: 'Poppins',
               ),
-              textAlign: TextAlign.center, 
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 4),
-            if (isActive)
-              Container(
-                width: 30,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD2691E),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
           ],
         ),
       ),
@@ -136,13 +128,11 @@ class CustomBottomNavBar extends StatelessWidget {
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => destinationPage,
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            destinationPage,
         transitionDuration: const Duration(milliseconds: 300),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpeg_mascitra_mobile/pages/authPage/loginPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/profilePage/dataAkunPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/profilePage/petunjukPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/starterPage/welcomePage.dart';
 import '../navbar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -8,165 +10,221 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFF8C42),
-              Color(0xFFD2691E),
-            ],
-          ),
-        ),
-        child: Stack(
-          children: [
-            // Topographic pattern background
-            Positioned.fill(
-              child: Image.asset(
-                'assets/images/topographic_pattern.png',
-                fit: BoxFit.cover,
-                opacity: const AlwaysStoppedAnimation(0.1),
+      body: Stack(
+        children: [
+          // Gradient background
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFFF8C42), Color(0xFFC64304)],
               ),
             ),
-            SafeArea(
-              child: Column(
-                children: [
-                  // Header
-                  Container(
-                    padding: const EdgeInsets.all(24),
+          ),
+          // White container for bottom content
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: MediaQuery.of(context).size.height * 0.65,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+            ),
+          ),
+          // Decorative background image (in front of white container)
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            child: Image.asset(
+              'assets/images/Greyprofile.png',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          // Main content
+          SafeArea(
+            child: Column(
+              children: [
+                // Header with title
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(),
+                // Profile avatar
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.person,
+                    size: 50,
+                    color: Color(0xFF9E9E9E),
+                  ),
+                ),
+                const SizedBox(),
+                // Name
+                const Text(
+                  'Fairuz Zaki',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Status badge
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    'Pegawai Magang',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFC64304),
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                // Menu container
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        // Menu item 1
+                        _buildMenuItem(
+                          icon: Icons.person_outline,
+                          title: 'Data Akun',
+                          subtitle: 'Detail your data account',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DataAkunPage(),
+                              ),
+                            );
+                          },
+                          isFirst: true,
+                        ),
+                        // Divider
+                        Container(
+                          height: 1,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          color: Colors.grey[200],
+                        ),
+                        // Menu item 2
+                        _buildMenuItem(
+                          icon: Icons.help_outline,
+                          title: 'Petunjuk',
+                          subtitle: 'Instructions App Kepegawaian',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PetunjukFilePage(),
+                              ),
+                            );
+                          },
+                          isFirst: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                // Logout button
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 200),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _showLogoutDialog(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFC64304),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      elevation: 2,
+                    ),
                     child: const Text(
-                      'Profile',
+                      'Keluar',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Poppins',
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 24),
-                            // Profile picture and info
-                            Column(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFF0F0F0),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.person,
-                                    size: 50,
-                                    color: Color(0xFF9E9E9E),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                const Text(
-                                  'Doraemon',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2D2D2D),
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFD2691E),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Text(
-                                    'Pegawai Tetap',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 40),
-                            // Menu items
-                            _buildMenuItem(
-                              icon: Icons.person_outline,
-                              title: 'Data Akun',
-                              subtitle: 'Detail you\'re data account',
-                              onTap: () {
-                                // Navigate to account data
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                            _buildMenuItem(
-                              icon: Icons.help_outline,
-                              title: 'Petunjuk',
-                              subtitle: 'Instructions App Kepegawaian',
-                              onTap: () {
-                                // Navigate to instructions
-                              },
-                            ),
-                            const SizedBox(height: 40),
-                            // Logout button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  _showLogoutDialog(context);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFD2691E),
-                                  foregroundColor: Colors.white,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Keluar',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 100), // Space for bottom navigation
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          // Decorative background image (on top of everything)
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            child: Image.asset(
+              'assets/images/Greyprofile.png',
+              fit: BoxFit.fitWidth,
+              opacity: const AlwaysStoppedAnimation(0),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const CustomBottomNavBar(currentIndex: 2),
     );
@@ -177,37 +235,22 @@ class ProfilePage extends StatelessWidget {
     required String title,
     required String subtitle,
     required VoidCallback onTap,
+    required bool isFirst,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
         padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
         child: Row(
           children: [
             Container(
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: const Color(0xFFD2691E).withOpacity(0.1),
+                color: const Color(0xFFC64304).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(
-                icon,
-                color: const Color(0xFFD2691E),
-                size: 24,
-              ),
+              child: Icon(icon, color: const Color(0xFFC64304), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -227,7 +270,7 @@ class ProfilePage extends StatelessWidget {
                   Text(
                     subtitle,
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xFF6B6B6B),
                       fontFamily: 'Poppins',
                     ),
@@ -235,11 +278,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right,
-              color: Color(0xFF9E9E9E),
-              size: 24,
-            ),
+            const Icon(Icons.chevron_right, color: Color(0xFF9E9E9E), size: 24),
           ],
         ),
       ),
@@ -263,9 +302,7 @@ class ProfilePage extends StatelessWidget {
           ),
           content: const Text(
             'Apakah Anda yakin ingin keluar dari aplikasi?',
-            style: TextStyle(
-              fontFamily: 'Poppins',
-            ),
+            style: TextStyle(fontFamily: 'Poppins'),
           ),
           actions: [
             TextButton(
@@ -285,12 +322,12 @@ class ProfilePage extends StatelessWidget {
                 Navigator.of(context).pop();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) => const WelcomePage()),
                   (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFD2691E),
+                backgroundColor: const Color(0xFFC64304),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -298,9 +335,7 @@ class ProfilePage extends StatelessWidget {
               ),
               child: const Text(
                 'Keluar',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                ),
+                style: TextStyle(fontFamily: 'Poppins'),
               ),
             ),
           ],
