@@ -23,9 +23,13 @@ class _HomePageState extends State<HomePage> {
       'title': 'Kegiatan Harian',
       'icon': 'assets/icon/presentationboard.png',
       'color': Color(0xFFC64304),
+      'icon': 'assets/icon/presentationboard.png',
+      'color': Color(0xFFC64304),
     },
     {
       'title': 'Riwayat Absensi',
+      'icon': 'assets/icon/clipboard.png',
+      'color': Color(0xFFC64304),
       'icon': 'assets/icon/clipboard.png',
       'color': Color(0xFFC64304),
     },
