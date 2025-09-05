@@ -25,7 +25,7 @@ class _CaraKegiatanHarianPageState extends State<CaraKegiatanHarianPage> {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     IconButton(
@@ -38,14 +38,14 @@ class _CaraKegiatanHarianPageState extends State<CaraKegiatanHarianPage> {
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(width: 0),
                     Expanded(
                       child: Text(
                         'Cara Mengisi Kegiatan Harian',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

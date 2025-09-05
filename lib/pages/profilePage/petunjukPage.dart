@@ -27,7 +27,7 @@ class _PetunjukFilePageState extends State<PetunjukFilePage> {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     IconButton(
@@ -40,13 +40,13 @@ class _PetunjukFilePageState extends State<PetunjukFilePage> {
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(width: 0),
                     Text(
                       'Petunjuk',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],

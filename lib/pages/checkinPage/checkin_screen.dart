@@ -103,62 +103,58 @@ class _CheckInScreenState extends State<CheckInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // Header
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(32),
-              bottomRight: Radius.circular(32),
+          // Header with Grey.png background
+          Container(
+            height: MediaQuery.of(context).padding.top + 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Grey.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Container(
-              width: screenWidth,
-              height: 110,
-              color: const Color(0xFFD35400),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 16,
-                    top: 48,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            color: Colors.white,
-                            size: 22,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'Jam Masuk',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 0),
+                    Text(
+                      'Jam Masuk',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           const SizedBox(height: 24),
 
-          // Map Container
+          // Map Container with updated border color
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               width: double.infinity,
               height: 260,
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFD35400), width: 2),
+                border: Border.all(color: Color(0xFFC64304), width: 2),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: ClipRRect(
@@ -218,7 +214,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Color(0xFFFDEEE3),
+                  color: Colors.orange.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -226,12 +222,12 @@ class _CheckInScreenState extends State<CheckInScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.location_on, color: Color(0xFFD35400)),
+                        Icon(Icons.location_on, color: Color(0xFFC64304)),
                         SizedBox(width: 8),
                         Text(
                           'Lokasi Berhasil Didapat',
                           style: TextStyle(
-                            color: Color(0xFFD35400),
+                            color: Color(0xFFC64304),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -241,7 +237,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                     Text(
                       'Lat: ${_currentPosition!.latitude.toStringAsFixed(6)}\nLong: ${_currentPosition!.longitude.toStringAsFixed(6)}',
                       style: const TextStyle(
-                        color: Color(0xFFD35400),
+                        color: Color(0xFFC64304),
                         fontSize: 12,
                       ),
                     ),
@@ -278,7 +274,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _loading
                           ? Colors.grey
-                          : const Color(0xFFD35400),
+                          : const Color(0xFFC64304),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -302,7 +298,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _currentPosition != null
-                          ? const Color(0xFFD35400)
+                          ? const Color(0xFFC64304)
                           : Colors.grey,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -334,7 +330,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on, size: 48, color: Color(0xFFD35400)),
+            Icon(Icons.location_on, size: 48, color: Color(0xFFC64304)),
             SizedBox(height: 8),
             Text(
               'Tekan tombol Lokasi untuk\nmenampilkan peta',
@@ -379,7 +375,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
               ),
               child: Icon(
                 Icons.location_on,
-                color: Color(0xFFD35400),
+                color: Color(0xFFC64304),
                 size: 40,
               ),
             ),

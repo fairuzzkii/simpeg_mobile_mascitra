@@ -113,50 +113,45 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // Header
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(32),
-              bottomRight: Radius.circular(32),
+          // Header with Grey.png background - matching CheckIn/CheckOut design
+          Container(
+            height: MediaQuery.of(context).padding.top + 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Grey.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Container(
-              width: screenWidth,
-              height: 110,
-              color: const Color(0xFFD35400),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 16,
-                    top: 48,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            color: Colors.white,
-                            size: 22,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'Jam Masuk',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 6),
+                    Text(
+                      'Jam Masuk',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -169,7 +164,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
               width: double.infinity,
               height: 400,
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFD35400), width: 2),
+                border: Border.all(color: Color(0xFFC64304), width: 2),
                 borderRadius: BorderRadius.circular(18),
                 color: Color(0xFFF5F5F5),
               ),
@@ -231,7 +226,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                                       ? 'Kamera Belakang'
                                       : 'Kamera Depan',
                                   style: TextStyle(
-                                    color: Color(0xFFD35400),
+                                    color: Color(0xFFC64304),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -247,7 +242,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFD35400),
+                                  color: Color(0xFFC64304),
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
@@ -344,7 +339,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isLoading
                         ? Colors.grey
-                        : const Color(0xFFD35400),
+                        : const Color(0xFFC64304),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
@@ -396,7 +391,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD35400),
+                        backgroundColor: const Color(0xFFC64304),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),

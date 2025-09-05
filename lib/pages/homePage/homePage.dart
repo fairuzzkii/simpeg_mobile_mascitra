@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simpeg_mascitra_mobile/pages/cutiPage/riwayatCutiPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/historyPage/attendance_history_screen.dart';
 import 'package:simpeg_mascitra_mobile/pages/notificationPage/notificationPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/penilaianPage/penilaianPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkinPage/checkin_screen.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkoutpage/checkout_screen.dart';
 import '../navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,13 +26,9 @@ class _HomePageState extends State<HomePage> {
       'title': 'Kegiatan Harian',
       'icon': 'assets/icon/presentationboard.png',
       'color': Color(0xFFC64304),
-      'icon': 'assets/icon/presentationboard.png',
-      'color': Color(0xFFC64304),
     },
     {
       'title': 'Riwayat Absensi',
-      'icon': 'assets/icon/clipboard.png',
-      'color': Color(0xFFC64304),
       'icon': 'assets/icon/clipboard.png',
       'color': Color(0xFFC64304),
     },
@@ -155,20 +154,56 @@ class _HomePageState extends State<HomePage> {
                         return GestureDetector(
                           onTap: () {
                             // Handle feature tap
-                            if (feature['title'] == 'Cuti') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RiwayatCutiPage(),
-                                ),
-                              );
-                            } else if (feature['title'] == 'Penilaian') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PenilaianPage(),
-                                ),
-                              );
+                            switch (feature['title']) {
+                              case 'Jam Masuk':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const CheckInScreen(),
+                                  ),
+                                );
+                                break;
+                              case 'Jam Pulang':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const CheckOutScreen(),
+                                  ),
+                                );
+                                break;
+                              case 'Cuti':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const RiwayatCutiPage(),
+                                  ),
+                                );
+                                break;
+                              case 'Riwayat Absensi':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const AttendanceHistoryScreen(),
+                                  ),
+                                );
+                                break;
+                              case 'Penilaian':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PenilaianPage(),
+                                  ),
+                                );
+                                break;
+                              default:
+                                // Handle other features or show a placeholder
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('${feature['title']} belum tersedia'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                                break;
                             }
                           },
                           child: Container(

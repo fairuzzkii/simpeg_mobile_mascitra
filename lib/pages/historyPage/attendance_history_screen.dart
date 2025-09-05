@@ -52,17 +52,17 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(32),
-                  bottomRight: Radius.circular(32),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
                 ),
                 child: Container(
                   width: screenWidth,
                   height: 110,
-                  color: const Color(0xFFD35400),
+                  color: const Color(0xFFC64304),
                   child: Stack(
                     children: [
                       Image.asset(
-                        'assets/images/Greybig.png',
+                        'assets/images/Grey.png',
                         fit: BoxFit.cover,
                         width: screenWidth,
                         height: 110,
@@ -87,8 +87,8 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                               'Riwayat Absensi',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -121,7 +121,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                     return false;
                   },
                   child: ListView(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 200),
                     children: [
                       _AttendanceCard(
                         date: '23 July 2025',
@@ -169,6 +169,13 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(18),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.10),
+                          blurRadius: 12,
+                          offset: const Offset(0, -4),
+                        ),
+                      ],
                     ),
                     padding: const EdgeInsets.all(18),
                     child: Column(
@@ -178,7 +185,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                         const Text(
                           'Filter Absensi',
                           style: TextStyle(
-                            color: Color(0xFFD35400),
+                            color: Color(0xFFC64304),
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),
@@ -201,7 +208,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                                   children: [
                                     const Icon(
                                       Icons.calendar_today,
-                                      color: Color(0xFFD35400),
+                                      color: Color(0xFFC64304),
                                       size: 20,
                                     ),
                                     const SizedBox(width: 8),
@@ -212,7 +219,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                                         const Text(
                                           'Select Date',
                                           style: TextStyle(
-                                            color: Color(0xFFD35400),
+                                            color: Color(0xFFC64304),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13,
                                           ),
@@ -232,7 +239,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                               const Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios,
-                                color: Color(0xFFD35400),
+                                color: Color(0xFFC64304),
                                 size: 18,
                               ),
                             ],
@@ -246,7 +253,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD35400),
+                              backgroundColor: const Color(0xFFC64304),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
@@ -308,8 +315,9 @@ class _AttendanceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFFD35400),
+              color: Color(0xFFC64304),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(18),
                 topRight: Radius.circular(18),
@@ -330,46 +338,84 @@ class _AttendanceCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  inTime,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Jam Masuk',
-                  style: TextStyle(color: Color(0xFF989898), fontSize: 13),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  inLocation,
-                  style: const TextStyle(
-                    color: Color(0xFF989898),
-                    fontSize: 12,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            inTime,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Jam Masuk',
+                            style: TextStyle(color: Color(0xFF989898), fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            inLocation,
+                            style: const TextStyle(
+                              color: Color(0xFF989898),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 const Divider(height: 20),
-                Text(
-                  outTime,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Jam Pulang',
-                  style: TextStyle(color: Color(0xFF989898), fontSize: 13),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  outLocation,
-                  style: const TextStyle(
-                    color: Color(0xFF989898),
-                    fontSize: 12,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            outTime,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Jam Pulang',
+                            style: TextStyle(color: Color(0xFF989898), fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            outLocation,
+                            style: const TextStyle(
+                              color: Color(0xFF989898),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

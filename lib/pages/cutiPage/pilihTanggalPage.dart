@@ -26,7 +26,7 @@ class _PilihTanggalPageState extends State<PilihTanggalPage> {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     IconButton(
@@ -39,13 +39,13 @@ class _PilihTanggalPageState extends State<PilihTanggalPage> {
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(width: 0),
                     Text(
                       'Pilih Tanggal',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
