@@ -22,82 +22,68 @@ class NotificationPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFF8C42),
-              Color(0xFFD2691E),
-            ],
-          ),
-        ),
-        child: Stack(
-          children: [
-            // Topographic pattern background
-            Positioned.fill(
-              child: Image.asset(
-                'assets/images/topographic_pattern.png',
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).padding.top + 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Grey.png'),
                 fit: BoxFit.cover,
-                opacity: const AlwaysStoppedAnimation(0.1),
               ),
             ),
-            SafeArea(
-              child: Column(
-                children: [
-                  // Header
-                  Container(
-                    padding: const EdgeInsets.all(24),
-                    child: const Text(
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    SizedBox(width: 12),
+                    Text(
                       'Pemberitahuan',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
                         color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF8F8F8),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        ),
-                      ),
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(24),
-                        itemCount: notifications.length,
-                        itemBuilder: (context, index) {
-                          final notification = notifications[index];
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            child: _buildNotificationCard(
-                              title: notification['title'],
-                              description: notification['description'],
-                              date: notification['date'],
-                              isRead: notification['isRead'],
-                              onTap: () {
-                                // Handle notification tap
-                                _showNotificationDetail(context, notification);
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFFF8F8F8),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: ListView.builder(
+                padding: const EdgeInsets.all(24),
+                itemCount: notifications.length,
+                itemBuilder: (context, index) {
+                  final notification = notifications[index];
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: _buildNotificationCard(
+                      title: notification['title'],
+                      description: notification['description'],
+                      date: notification['date'],
+                      isRead: notification['isRead'],
+                      onTap: () {
+                        _showNotificationDetail(context, notification);
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const CustomBottomNavBar(currentIndex: 0),
     );
@@ -122,7 +108,7 @@ class NotificationPage extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
-              offset: const Offset(0, 4),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -153,12 +139,6 @@ class NotificationPage extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                   ),
-                const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
-                  color: Color(0xFF9E9E9E),
-                  size: 20,
-                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -174,13 +154,23 @@ class NotificationPage extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 12),
-            Text(
-              date,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF9E9E9E),
-                fontFamily: 'Poppins',
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF9E9E9E),
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: Color(0xFFC64340),
+                  size: 20,
+                ),
+              ],
             ),
           ],
         ),
@@ -205,7 +195,6 @@ class NotificationPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // Handle bar
               Container(
                 margin: const EdgeInsets.only(top: 12),
                 width: 40,
@@ -215,7 +204,6 @@ class NotificationPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              // Content
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(24),
