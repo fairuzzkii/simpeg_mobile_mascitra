@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:simpeg_mascitra_mobile/pages/cutiPage/riwayatCutiPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/historyPage/attendance_history_screen.dart';
+import 'package:simpeg_mascitra_mobile/pages/kegiatanHarianPage/kegiatanHarianPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/notificationPage/notificationPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/penilaianPage/penilaianPage.dart';
-import 'package:simpeg_mascitra_mobile/pages/checkinPage/checkin_screen.dart';
-import 'package:simpeg_mascitra_mobile/pages/checkoutpage/checkout_screen.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkinPage/checkinScreen.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkoutPage/checkoutScreen.dart';
 import '../navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -192,6 +193,14 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const PenilaianPage(),
+                                  ),
+                                );
+                                break;
+                              case 'Kegiatan Harian':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const KegiatanHarianPage(),
                                   ),
                                 );
                                 break;

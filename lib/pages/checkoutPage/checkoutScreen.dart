@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:simpeg_mascitra_mobile/pages/checkinPage/camera_capture_screen.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkoutPage/cameraCaptureOutScreen.dart';
 
-class CheckInScreen extends StatefulWidget {
-  const CheckInScreen({super.key});
+class CheckOutScreen extends StatefulWidget {
+  const CheckOutScreen({super.key});
 
   @override
-  State<CheckInScreen> createState() => _CheckInScreenState();
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
 
-class _CheckInScreenState extends State<CheckInScreen> {
+class _CheckOutScreenState extends State<CheckOutScreen> {
   Position? _currentPosition;
   bool _loading = false;
   MapController? _mapController;
@@ -62,23 +62,21 @@ class _CheckInScreenState extends State<CheckInScreen> {
 
       if (permission == LocationPermission.deniedForever) {
         setState(() {
-          _errorMessage =
-              'Izin lokasi ditolak permanen. Buka pengaturan untuk mengizinkan.';
+          _errorMessage = 'Izin lokasi ditolak permanen. Buka pengaturan untuk mengizinkan.';
           _loading = false;
         });
         return;
       }
 
-      Position position =
-          await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high,
-            timeLimit: Duration(seconds: 15),
-          ).timeout(
-            Duration(seconds: 20),
-            onTimeout: () {
-              throw Exception('Timeout mendapatkan lokasi. Coba lagi.');
-            },
-          );
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        timeLimit: Duration(seconds: 15),
+      ).timeout(
+        Duration(seconds: 20),
+        onTimeout: () {
+          throw Exception('Timeout mendapatkan lokasi. Coba lagi.');
+        },
+      );
 
       setState(() {
         _currentPosition = position;
@@ -133,7 +131,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                     ),
                     SizedBox(width: 0),
                     Text(
-                      'Jam Masuk',
+                      'Jam Pulang',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -291,7 +289,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const CameraCaptureScreen(),
+                                builder: (_) => const CameraCaptureOutScreen(),
                               ),
                             );
                           }

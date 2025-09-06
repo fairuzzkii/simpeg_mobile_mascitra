@@ -13,115 +13,122 @@ class _PilihTanggalScreenState extends State<PilihTanggalScreen> {
   DateTime? _tanggalMulai;
   DateTime? _tanggalBerakhir;
   String _calendarType = ''; // 'start' or 'end'
+  DateTime? _tempSelectedDate; // Temporary selected date
 
   void _showDatePickerDialog({required bool isStartDate}) {
     setState(() {
       _calendarType = isStartDate ? 'start' : 'end';
+      _tempSelectedDate = null; // Reset temporary selection
     });
 
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: const Color(0xFFC64304),
-                  width: 2,
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: const Color(0xFFC64304),
+                      width: 2,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TableCalendar(
+                        focusedDay: DateTime.now(),
+                        firstDay: DateTime(2000),
+                        lastDay: DateTime(2100),
+                        selectedDayPredicate: (day) {
+                          return _tempSelectedDate != null &&
+                              isSameDay(_tempSelectedDate!, day);
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                          setDialogState(() {
+                            _tempSelectedDate = selectedDay;
+                          });
+                        },
+                        calendarStyle: CalendarStyle(
+                          outsideDaysVisible: false,
+                          weekendTextStyle: const TextStyle(color: Colors.black),
+                          holidayTextStyle: const TextStyle(color: Colors.black),
+                          defaultTextStyle: const TextStyle(color: Colors.black),
+                          todayDecoration: BoxDecoration(
+                            color: const Color(0xFFC64304).withOpacity(0.3),
+                            shape: BoxShape.circle,
+                          ),
+                          selectedDecoration: const BoxDecoration(
+                            color: Color(0xFFC64304),
+                            shape: BoxShape.circle,
+                          ),
+                          selectedTextStyle: const TextStyle(color: Colors.white),
+                          todayTextStyle: const TextStyle(color: Colors.white),
+                        ),
+                        headerStyle: HeaderStyle(
+                          formatButtonVisible: false,
+                          titleCentered: true,
+                          leftChevronIcon: const Icon(
+                            Icons.chevron_left,
+                            color: Color(0xFFC64304),
+                          ),
+                          rightChevronIcon: const Icon(
+                            Icons.chevron_right,
+                            color: Color(0xFFC64304),
+                          ),
+                          titleTextStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        daysOfWeekStyle: const DaysOfWeekStyle(
+                          weekdayStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          weekendStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _tempSelectedDate != null
+                            ? () {
+                                _selectDate(_tempSelectedDate!);
+                                Navigator.pop(context);
+                              }
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _tempSelectedDate != null
+                              ? const Color(0xFFC64304)
+                              : Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          "Choose Date",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TableCalendar(
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime(2000),
-                    lastDay: DateTime(2100),
-                    selectedDayPredicate: (day) {
-                      if (_calendarType == 'start') {
-                        return _tanggalMulai != null &&
-                            isSameDay(_tanggalMulai!, day);
-                      } else {
-                        return _tanggalBerakhir != null &&
-                            isSameDay(_tanggalBerakhir!, day);
-                      }
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      _selectDate(selectedDay);
-                      Navigator.pop(context);
-                    },
-                    calendarStyle: CalendarStyle(
-                      outsideDaysVisible: false,
-                      weekendTextStyle: const TextStyle(color: Colors.black),
-                      holidayTextStyle: const TextStyle(color: Colors.black),
-                      defaultTextStyle: const TextStyle(color: Colors.black),
-                      todayDecoration: BoxDecoration(
-                        color: const Color(0xFFC64304).withOpacity(0.3),
-                        shape: BoxShape.circle,
-                      ),
-                      selectedDecoration: const BoxDecoration(
-                        color: Color(0xFFC64304),
-                        shape: BoxShape.circle,
-                      ),
-                      selectedTextStyle: const TextStyle(color: Colors.white),
-                      todayTextStyle: const TextStyle(color: Colors.white),
-                    ),
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                      leftChevronIcon: const Icon(
-                        Icons.chevron_left,
-                        color: Color(0xFFC64304),
-                      ),
-                      rightChevronIcon: const Icon(
-                        Icons.chevron_right,
-                        color: Color(0xFFC64304),
-                      ),
-                      titleTextStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      weekendStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFC64304),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: const Text(
-                      "Choose Date",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

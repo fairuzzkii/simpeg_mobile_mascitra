@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:simpeg_mascitra_mobile/pages/homePage/homePage.dart';
 
-class PengajuanBerhasilPage extends StatefulWidget {
-  const PengajuanBerhasilPage({super.key});
+class KegiatanBerhasilPage extends StatefulWidget {
+  const KegiatanBerhasilPage({super.key});
 
   @override
-  State<PengajuanBerhasilPage> createState() => _PengajuanBerhasilPageState();
+  State<KegiatanBerhasilPage> createState() => _KegiatanBerhasilPageState();
 }
 
-class _PengajuanBerhasilPageState extends State<PengajuanBerhasilPage> {
+class _KegiatanBerhasilPageState extends State<KegiatanBerhasilPage> {
   @override
   void initState() {
     super.initState();
@@ -30,10 +30,10 @@ class _PengajuanBerhasilPageState extends State<PengajuanBerhasilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
@@ -44,18 +44,20 @@ class _PengajuanBerhasilPageState extends State<PengajuanBerhasilPage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 40),
               Text(
-                "Pengajuan Cuti Telah Terkirim",
+                "The Dailies Activities Has Been Sent",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Poppins",
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

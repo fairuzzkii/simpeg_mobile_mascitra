@@ -3,16 +3,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:simpeg_mascitra_mobile/pages/checkinPage/success_submit_screen.dart';
+import 'package:simpeg_mascitra_mobile/pages/checkoutPage/successSubmitOutScreen.dart';
 
-class CameraCaptureScreen extends StatefulWidget {
-  const CameraCaptureScreen({super.key});
+class CameraCaptureOutScreen extends StatefulWidget {
+  const CameraCaptureOutScreen({super.key});
 
   @override
-  State<CameraCaptureScreen> createState() => _CameraCaptureScreenState();
+  State<CameraCaptureOutScreen> createState() => _CameraCaptureOutScreenState();
 }
 
-class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
+class _CameraCaptureOutScreenState extends State<CameraCaptureOutScreen> {
   File? _imageFile;
   final ImagePicker _picker = ImagePicker();
   bool _isLoading = false;
@@ -49,10 +49,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
           .timeout(
             const Duration(seconds: 30),
             onTimeout: () {
-              throw TimeoutException(
-                'Timeout saat membuka kamera',
-                const Duration(seconds: 30),
-              );
+              throw TimeoutException('Timeout saat membuka kamera', const Duration(seconds: 30));
             },
           );
 
@@ -84,9 +81,10 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
 
   void _switchCamera() {
     setState(() {
-      _selectedCamera = _selectedCamera == CameraDevice.rear
-          ? CameraDevice.front
-          : CameraDevice.rear;
+      _selectedCamera =
+          _selectedCamera == CameraDevice.rear
+              ? CameraDevice.front
+              : CameraDevice.rear;
     });
   }
 
@@ -102,9 +100,9 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => const SuccessSubmitScreen(
-            title: 'Absensi Masuk Telah Berhasil',
-            subtitle: 'Semangat Kerja Hari Ini',
+          builder: (_) => const SuccessSubmitOutScreen(
+            title: 'Absensi Pulang Telah Berhasil',
+            subtitle: 'Selamat Beristirahat',
           ),
         ),
       );
@@ -143,7 +141,7 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                     ),
                     SizedBox(width: 6),
                     Text(
-                      'Jam Masuk',
+                      'Jam Pulang',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -337,9 +335,8 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _isLoading
-                        ? Colors.grey
-                        : const Color(0xFFC64304),
+                    backgroundColor:
+                        _isLoading ? Colors.grey : const Color(0xFFC64304),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
