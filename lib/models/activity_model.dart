@@ -1,16 +1,22 @@
-import 'package:flutter/widgets.dart';
+class ActivityModel {
+  String? selectedDate;
+  String? deskripsiKegiatan;
+  String? targetKegiatan;
+  String? realisasiKegiatan;
 
-class Activity {
-  final String title;
-  final String description;
-  final bool isCompleted;
-  final String time;
+  ActivityModel({
+    this.selectedDate,
+    this.deskripsiKegiatan,
+    this.targetKegiatan,
+    this.realisasiKegiatan,
+  });
 
-  Activity({
-  required this.title,
-  required this.description,
-  this.isCompleted = false,
-  this.time = ''
-});
+  factory ActivityModel.fromJson(Map<String, dynamic> json) {
+    return ActivityModel(
+      deskripsiKegiatan: json['deskripsi_kegiatan'],
+      targetKegiatan: json['target_kegiatan'],
+      realisasiKegiatan: json['realisasi_kegiatan'],
+    );
+  }
+
 }
-
