@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simpeg_mascitra_mobile/pages/kegiatanHarianPage/pilihTanggalHarianPage.dart';
+import 'package:simpeg_mascitra_mobile/pages/kegiatanHarianPage/riwayatHarianPage.dart';
 import 'package:simpeg_mascitra_mobile/pages/kegiatanHarianPage/successKegiatan.dart';
 
 class KegiatanHarianPage extends StatefulWidget {
@@ -98,34 +99,22 @@ class _KegiatanHarianPageState extends State<KegiatanHarianPage> {
                         ),
                       ),
                       Spacer(),
-                      TextButton(
+                      IconButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RiwayatKegiatanPage(),
+                              builder: (context) => const RiwayatKegiatanHarianPage(),
                             ),
                           );
                         },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.history,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'Riwayat',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        icon: const Icon(
+                          Icons.history,
+                          color: Colors.white,
+                          size: 24,
                         ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
                       ),
                     ],
                   ),
@@ -140,7 +129,7 @@ class _KegiatanHarianPageState extends State<KegiatanHarianPage> {
                   children: [
                     SizedBox(height: 16),
                     
-                    // Tanggal Kegiatan - Modified to navigate to DatePickerPage
+                    // Tanggal Kegiatan
                     _buildDateField(),
                     
                     // Deskripsi Kegiatan
@@ -214,7 +203,7 @@ class _KegiatanHarianPageState extends State<KegiatanHarianPage> {
           ),
           SizedBox(height: 4),
           GestureDetector(
-            onTap: _navigateToDatePicker, // Changed to navigate to DatePickerPage
+            onTap: _navigateToDatePicker,
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -323,69 +312,6 @@ class _KegiatanHarianPageState extends State<KegiatanHarianPage> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Color(0xFFC64304), width: 1),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Riwayat Page (Placeholder) - Tidak berubah
-class RiwayatKegiatanPage extends StatelessWidget {
-  const RiwayatKegiatanPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).padding.top + 80,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/Grey.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Riwayat Kegiatan',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Center(
-              child: Text(
-                'Riwayat kegiatan akan ditampilkan di sini',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
               ),
             ),
           ),
